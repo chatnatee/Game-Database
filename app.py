@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/') #<-- called "Decorator"
 def home():
-    return 'This works!'
+    return 'You are now home'
 
 @app.route('/inventory')
 def inventory(): #<-- create a dictonary using JSON method/format (in postman use localhost5000:/inventory to access the dictionary)
