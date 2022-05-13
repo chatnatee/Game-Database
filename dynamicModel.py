@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
-class Potion(db.model):
+class Potion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)

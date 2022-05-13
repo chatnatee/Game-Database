@@ -1,5 +1,3 @@
-from crypt import methods
-from operator import contains
 from flask import Flask, redirect, render_template, url_for, request, jsonify
 from dynamicModel import db, Potion
 
@@ -8,7 +6,7 @@ from dynamicModel import db, Potion
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 '''
@@ -17,40 +15,47 @@ def home():
     return 'You are now home'
 '''
 
-@app.route('/',methods['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def home():
-    return render_template('index.jinja', msg="testing", letters=['a','b','c'])
+    return render_template('page.html', title='home', message="Welcome home!")
 
 @app.route('/about')
-def home():
-    return render_template('home.jinja')
+def about():
+    return render_template('page.html', title='about', message="this is the about page lol.")
+
+
+@app.route('/inventory')
+def inventory():
+    data = Potion.query.all()
+    return render_template('inventory.html', title='Inventory', potions=data)
+
+@app.route('/potion', methods=['GET','POST'])
+def create_potion():
+    if request.method == 'GET':
+        return render_template('potion.html', title='Add a Potion')
+    else:
+        f_name = request.form['name']
+        f_quantity = request.form['quantity']
+        f_price = request.form['price']
+        to_add = Potion(name=f_name, quantity=f_quantity, price=f_price)
+        db.session.add(to_add)
+        db.session.commit()
+        return redirect(url_for('inventory'))
+
+@app.route('/filter-items', methods=['GET','POST'])
+def filter_items():
+    if request.method == 'GET':
+        return render_template('search.html', title='Search')
+    else:
+        f_max = request.form['max']
+        data = Potion.query.filter(Potion.price <= int(f_max)).all()
+        return render_template('inventory.html', title="Search results", potions=data)
 
 '''
-@app.route('/inventory')
-def inventory(): #<-- create a dictonary using JSON method/format (in postman use localhost5000:/inventory to access the dictionary)
-    data = Potion.query.all()
-    if 'list' not in type(data):
-        potions = []
-        for p in data:
-            potions.append(p.to_dict())
-        else:
-            potions.append(data.to_dict())
-
-    stock = {
-        'potions' : potions
-    }
-    return stock
-
-@app.route('/potions', methods=['POST'])
-def create_potion():
-    f_name = request.form['name']
-    f_quantity = request.form['quantity']
-    f_price = request.form['price']
-    to_add = Potion(name=f_name, quantity=f_quantity, price=f_price)
-    db.session.add(to_add)
-    db.session.commit()
-    return redirect(url_for('inventory'))
-
+    else:
+        f_max = request.form['max']
+        data = Potion.query.filter(Potion.price.startswith("insert_name")).all()
+        return render_template('inventory.html', title="Search results", potions=data)
 '''
 
 '''

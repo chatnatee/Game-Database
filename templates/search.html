@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Search</h1>
+<form action="/filter-items" method="post">
+    <p>
+        <input type="number" name="max" min="0" placeholder="Max Value">
+        <input type="submit" value="Search">
+    </p>
+</form>
+{% endblock %}
