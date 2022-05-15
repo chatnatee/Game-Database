@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
 <h1>Search</h1>
-<form action="/filter-items" method="post">
+<h3>Look up games by genre (1=...)</h3>
+<form action="/filter-games" method="post">
     <p>
-        <input type="number" name="max" min="0" placeholder="Max Value">
+        <input type="number" name="genre" min="0" placeholder="Search genre by number">
         <input type="submit" value="Search">
     </p>
 </form>

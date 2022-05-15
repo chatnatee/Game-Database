@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, url_for, request, jsonify
-from dynamicModel import db, Potion
+from dynamicModel import db, Games
 
 #to see the result type "flask run" into the terminal
 
@@ -17,39 +17,39 @@ def home():
 
 @app.route('/', methods=['GET','POST'])
 def home():
-    return render_template('page.html', title='home', message="Welcome home!")
+    return render_template('page.html', title='home', message="Welcome homepage of video games database!")
 
 @app.route('/about')
 def about():
-    return render_template('page.html', title='about', message="this is the about page lol.")
+    return render_template('page.html', title='about', message="This database stores several video games informations (Name, Genre and Date of Release. Please the attached README.txt file for more instructions)")
 
 
-@app.route('/inventory')
-def inventory():
-    data = Potion.query.all()
-    return render_template('inventory.html', title='Inventory', potions=data)
+@app.route('/all')
+def all():
+    data = Games.query.all()
+    return render_template('all.html', title='All-Games', alls=data)
 
-@app.route('/potion', methods=['GET','POST'])
-def create_potion():
+@app.route('/game', methods=['GET','POST'])
+def create_games():
     if request.method == 'GET':
-        return render_template('potion.html', title='Add a Potion')
+        return render_template('game.html', title='Add Games')
     else:
         f_name = request.form['name']
-        f_quantity = request.form['quantity']
-        f_price = request.form['price']
-        to_add = Potion(name=f_name, quantity=f_quantity, price=f_price)
+        f_genre = request.form['genre']
+        f_dor = request.form['dor']
+        to_add = Games(name=f_name, genre=f_genre, dor=f_dor)
         db.session.add(to_add)
         db.session.commit()
-        return redirect(url_for('inventory'))
+        return redirect(url_for('all'))
 
-@app.route('/filter-items', methods=['GET','POST'])
-def filter_items():
+@app.route('/filter-games', methods=['GET','POST'])
+def filter_games():
     if request.method == 'GET':
         return render_template('search.html', title='Search')
     else:
-        f_max = request.form['max']
-        data = Potion.query.filter(Potion.price <= int(f_max)).all()
-        return render_template('inventory.html', title="Search results", potions=data)
+        f_numg = request.form['numg']
+        data = Games.query.filter(Games.genre == int(f_numg)).all()
+        return render_template('all.html', title="Search results", alls=data)
 
 '''
     else:

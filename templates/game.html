@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>{{ title }}</h1>
+<h2>Data entry format</h2>
+<h3>Genre : 1=.....</h3>
+<h3>Date or Release : DD-MM-YYYY</h3>
+<form action="/game" method="post">
+
+    <label for="name">Name: </label><input type="text" placeholder="Name" name="name" required >
+    <br><br>
+
+    <label for="genre">Genre: </label><input type="text" placeholder="Genre" name="genre" required >
+    <br><br>
+
+    <label for="dor">Date-of-Release: </label><input type="text" placeholder="Date-of-Release" name="dor" required >
+    <br><br>
+
+    <input type="submit" value="Submit">
+
+</form>
+
+{% endblock %}

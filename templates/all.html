@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>{{ title }}</h1>
+{% if alls %}
+<ul>
+{% for all in alls %}
+<li>{{all.name | title}} | {{all.genre}} | {{all.dor}}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>Sorry, There is no video games in the database. :(</p>
+{% endif %}
+{% endblock %}

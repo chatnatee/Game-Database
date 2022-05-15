@@ -1,0 +1,8 @@
+{% macro nav(current) %}
+<nav>
+    <a href="{{url_for('home')}}"> Home </a>
+    <a href="{{url_for('inventory')}}"> Inventory </a>
+    <a href="{{url_for('create_potion')}}"> Add </a>
+    <a href="{{url_for('filter_items')}}"> search </a>
+</nav>
+{% endmacro %}
