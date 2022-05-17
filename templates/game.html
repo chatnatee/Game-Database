@@ -2,14 +2,23 @@
 {% block body %}
 <h1>{{ title }}</h1>
 <h2>Data entry format</h2>
-<h3>Genre : 1=.....</h3>
+<h4>Genre : 1=Sandbox</h4>
+<h4>Genre : 2=Real-time strategy (RTS)</h4>
+<h4>Genre : 3=Shooters (FPS and TPS)</h4>
+<h4>Genre : 4=Multiplayer online battle arena (MOBA)</h4>
+<h4>Genre : 5=Role-playing (RPG, ARPG, and More)</h4>
+<h4>Genre : 6=Simulation and sports</h4>
+<h4>Genre : 7=Puzzlers and party games</h4>
+<h4>Genre : 8=Action-adventure</h4>
+<h4>Genre : 9=Survival and horror</h4>
+<h4>Genre : 10=Platformer</h4>
 <h3>Date or Release : DD-MM-YYYY</h3>
 <form action="/game" method="post">
 
     <label for="name">Name: </label><input type="text" placeholder="Name" name="name" required >
     <br><br>
 
-    <label for="genre">Genre: </label><input type="text" placeholder="Genre" name="genre" required >
+    <label for="genre">Genre: </label><input type="number" placeholder="Please type in genre by number" name="genre" required >
     <br><br>
 
     <label for="dor">Date-of-Release: </label><input type="text" placeholder="Date-of-Release" name="dor" required >
