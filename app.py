@@ -14,21 +14,23 @@ db.init_app(app)
 def home():
     return 'You are now home'
 '''
-
+#welcome page
 @app.route('/', methods=['GET','POST'])
 def home():
     return render_template('page.html', title='home', message="Welcome homepage of video games database!")
 
+#about page
 @app.route('/about')
 def about():
     return render_template('page.html', title='about', message="This database stores several video games informations (Name, Genre and Date of Release. Please the attached README.txt file for more instructions)")
 
-
+#all games listed in the database
 @app.route('/all')
 def all():
     data = Games.query.all()
     return render_template('all.html', title='All-Games', alls=data)
 
+#puting in more games
 @app.route('/game', methods=['GET','POST'])
 def create_games():
     if request.method == 'GET':
@@ -42,6 +44,7 @@ def create_games():
         db.session.commit()
         return redirect(url_for('all'))
 
+#filter game by genre
 @app.route('/filter-games', methods=['GET','POST'])
 def filter_games():
     if request.method == 'GET':
